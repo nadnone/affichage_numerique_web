@@ -1,5 +1,5 @@
 # Panneau d'affichage numérique, webapp
-## Opmisation is coming 
+## Opmization is coming 
 
 ![demo img PNG](./demo/demo.png)
 ![demo img PNG](./demo/demo1.png)
