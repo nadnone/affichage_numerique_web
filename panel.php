@@ -7,12 +7,12 @@ $conn = new PDO("mysql:host=$mysql_host;dbname=$mysql_database;port=$mysql_port;
 
 $query = $conn->prepare("SELECT token, id FROM comptes WHERE username=:user");
 $query->execute([
-    ":user" => $_SESSION["username"]
+    ":user" => strip_tags($_SESSION["username"])
 ]);
 
 $rslt = $query->fetch();
 
-if($_SESSION["token"] != $rslt["token"] || !isset($_SESSION["token"])){
+if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"])){
     session_destroy();
     header("Location: ./index.php");
     return;
@@ -51,9 +51,8 @@ if($_SESSION["token"] != $rslt["token"] || !isset($_SESSION["token"])){
             </form>
 
             <?php
-            try{
-                $conn = new PDO("mysql:host=$mysql_host;port=$mysql_host;dbname=$mysql_database;", $mysql_username, $mysql_password);
-
+            try{                
+                
                 $query = $conn->prepare("SELECT * FROM labels");
                 $query->execute();
                 $labels = $query->fetchAll();
@@ -62,7 +61,7 @@ if($_SESSION["token"] != $rslt["token"] || !isset($_SESSION["token"])){
 
                 foreach($labels as $label){
 
-                    $label_str = $label["label"];
+                    $label_str = strip_tags($label["label"]);
                     $label_id  = $label["id"];
                     $label_userID = $label["user_id"];
 
@@ -83,7 +82,8 @@ if($_SESSION["token"] != $rslt["token"] || !isset($_SESSION["token"])){
                                 }
             }
             catch(PDOException $e){
-                echo $e;
+                //echo $e;
+                header("Location: ./panel.php?msg=Erreur+serveur");
             }
               
 

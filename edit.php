@@ -3,7 +3,8 @@ session_start();
 
 require("./var_config.php");
 
-$conn = new PDO("mysql:host=$mysql_host;dbname=$mysql_database;port=$mysql_port;", $mysql_username, $mysql_password);
+$conn = new PDO("mysql:host=$mysql_host;dbname=$mysql_database;port=$mysql_port;charset=utf8", $mysql_username, $mysql_password);
+$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
 $query = $conn->prepare("SELECT token, id, totp_key FROM comptes WHERE username=:user");
 $query->execute([
@@ -12,7 +13,7 @@ $query->execute([
 
 $rslt = $query->fetch();
 
-if($_SESSION["token"] != $rslt["token"] || !isset($_SESSION["token"])){
+if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"])){
     header("Location: ./index.php");
     return;
 }

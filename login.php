@@ -27,8 +27,8 @@ if(isset($_SESSION["username"]) && isset($_SESSION["token"])){
 // connexion
 if(!empty($_POST["username"]) && !empty($_POST["password"]) && isset($_POST["username"]) && isset($_POST["password"])){
 
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    $username = strip_tags($_POST["username"]);
+    $password = strip_tags($_POST["password"]);
 
 
     $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -36,8 +36,10 @@ if(!empty($_POST["username"]) && !empty($_POST["password"]) && isset($_POST["use
     try{
 
 
-        $conn = new PDO("mysql:host=$mysql_host;dbname=$mysql_database;port=$mysql_port;", $mysql_username, $mysql_password);
-
+        $conn = new PDO("mysql:host=$mysql_host;dbname=$mysql_database;port=$mysql_port;charset=utf8", $mysql_username, $mysql_password);
+        $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        
+        
         $query = $conn->prepare("SELECT password FROM comptes WHERE username=:user");
         $query->execute(array(
             ":user" => $username
