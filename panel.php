@@ -28,6 +28,8 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Affichage numérique | <?php echo $_SESSION["username"]; ?></title>
+    <meta name="robots" content="noindex">
+    <meta name="googlebot" content="noindex">
 </head>
 <body>
         
@@ -55,7 +57,7 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
                 
                 $query = $conn->prepare("SELECT * FROM labels");
                 $query->execute();
-                $labels = $query->fetchAll();
+                $labels = array_reverse($query->fetchAll());
 
                 if(!$labels) return;
 
@@ -65,7 +67,7 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
                     $label_id  = $label["id"];
                     $label_userID = $label["user_id"];
 
-                    echo "<div class='row'>$label_str";
+                    echo "<div class='row'><p>$label_str</p>";
 
                     if($label_userID == $rslt["id"]){
                         echo <<<EOT
@@ -91,8 +93,6 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
    
 
         </div>
-        
-
 
     </div>
 

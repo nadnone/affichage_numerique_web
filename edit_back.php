@@ -44,7 +44,7 @@ elseif(isset($_GET["deleteaccount"])){
 }
 elseif(!empty($_POST["password1"]) && !empty($_POST["password0"]) && $_POST["password1"] == $_POST["password2"] && isset($_POST["password1"]) && isset($_POST["password0"]) && isset($_POST["password2"])){
 
-    $password_striped = strip_tags($_POST["password1"];
+    $password_striped = strip_tags($_POST["password1"]);
 
     if(sizeof(str_split($password_striped)) < 20){ header("Location: ./edit.php?msg=20+caract%C3%A8res+minimum"); return;}
     if(preg_match_all("/[0-9]/", $password_striped) < 2){ header("Location: ./edit.php?msg=2+Chffres+minimum"); return;}
@@ -77,6 +77,9 @@ elseif(!empty($_POST["password1"]) && !empty($_POST["password0"]) && $_POST["pas
 
 
 
+}
+elseif($_POST["password1"] != $_POST["password2"]){
+    header("Location: ./edit.php?msg=Les+nouveaux+mots+de+passe+ne+correspondent+pas");
 }
 else{
     header("Location: ./edit.php?msg=Champ+menquant");
