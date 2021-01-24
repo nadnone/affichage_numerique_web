@@ -6,7 +6,7 @@ require("./var_config.php");
 $conn = new PDO("mysql:host=$mysql_host;dbname=$mysql_database;port=$mysql_port;charset=utf8", $mysql_username, $mysql_password);
 $conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-$query = $conn->prepare("SELECT token, id, totp_key FROM comptes WHERE username=:user");
+$query = $conn->prepare("SELECT token, id FROM comptes WHERE username=:user");
 $query->execute([
     ":user" => $_SESSION["username"]
 ]);

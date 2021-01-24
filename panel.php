@@ -46,10 +46,21 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
         <h3><?php echo  isset($_GET["msg"]) ? $_GET["msg"] : ""; ?></h3>
         <div class="table">
             
-            <form action="my_label.php" class="mylabel" method="post">
+
+            <script>
+                function check_mail(){
+
+                    if(window.confirm("Si vous validez, cette action va envoyer un mail à toute la liste des comptes, continuer ?")){
+                        document.getElementById("post_label").submit();
+                    }
+                }
+            </script>
+
+
+            <form action="my_label.php" id="post_label" class="mylabel" method="post">
                 <textarea maxlength="500" placeholder="Blablabla (500 caractères max)" name="mylabel"></textarea>
                 <input type="hidden" name="action" value="add"/>
-                <input type="submit" value="Envoyer"/>
+                <input type="button" onclick="check_mail()" value="Envoyer"/>
             </form>
 
             <?php

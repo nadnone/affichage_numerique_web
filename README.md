@@ -1,9 +1,14 @@
-# Panneau d'affichage numérique, webapp
-## Opmization is coming 
+# Panneau d'affichage numérique, WebApp
 
-![demo img PNG](./demo/demo.png)
-![demo img PNG](./demo/demo1.png)
 ![demo img PNG](./demo/demo2.png)
+
+
+## Requirements / installation
+
+- need [ PHPMailer 6.2.0 ](https://github.com/PHPMailer/PHPMailer/releases/tag/v6.2.0)
+  - Add the `PHPMailer/src` files on `PHPmailer/` Folder on the root of this project
+
+- Configure the `va_config.php` file
 
 SQL code:
 ```SQL
@@ -12,7 +17,7 @@ CREATE TABLE `comptes` (
   `id` int(30) UNSIGNED NOT NULL,
   `token` varchar(2048) DEFAULT NULL,
   `username` varchar(30) DEFAULT NULL,
-  `password` varchar(300) NOT NULL,
+  `password` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `comptes`
@@ -24,7 +29,7 @@ COMMIT;
 
 
 CREATE TABLE `labels` (
-  `id` int(255) NOT NULL,
+  `id` int(255) UNSIGNED NOT NULL,
   `label` text NOT NULL,
   `user_id` int(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
