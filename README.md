@@ -6,9 +6,9 @@
 ## Requirements / installation
 
 - need [ PHPMailer 6.2.0 ](https://github.com/PHPMailer/PHPMailer/releases/tag/v6.2.0)
-  - Add the `PHPMailer/src` files on `PHPmailer/` Folder on the root of this project
+  - Add the `PHPMailer/src` files on `PHPMailer/` Folder on the root of this project
 
-- Configure the `va_config.php` file
+- Configure the `var_config.php` file
 
 SQL code:
 ```SQL
