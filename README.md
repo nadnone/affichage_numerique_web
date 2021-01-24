@@ -17,7 +17,8 @@ CREATE TABLE `comptes` (
   `id` int(30) UNSIGNED NOT NULL,
   `token` varchar(2048) DEFAULT NULL,
   `username` varchar(30) DEFAULT NULL,
-  `password` varchar(300) NOT NULL
+  `password` varchar(300) NOT NULL,
+  'email' varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `comptes`
