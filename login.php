@@ -52,7 +52,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"]) && isset($_POST["use
 
                 // connexion sans TOTP
                
-                $token = bin2hex(random_bytes(1024));
+                $token = bin2hex(random_bytes(512));
 
                 $_SESSION["username"] = $username;
                 $_SESSION["token"] = $token;
