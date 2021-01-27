@@ -153,6 +153,7 @@ textarea:focus{
     } 
     input {
         width: 90% !important;
+        height: 60px !important;
     }
     .panel, .table, form{
         border-radius: 0px;
