@@ -3,6 +3,9 @@
 ![demo img PNG](./demo/demo2.png)
 
 
+
+More Screenshots: [ demo.md ](./demo.md)
+
 ## Requirements / installation
 
 - need [ PHPMailer 6.2.0 ](https://github.com/PHPMailer/PHPMailer/releases/tag/v6.2.0)
