@@ -9,7 +9,8 @@ More Screenshots: [ demo.md ](./demo.md)
 ## Requirements / installation
 
 - need [ PHPMailer 6.2.0 ](https://github.com/PHPMailer/PHPMailer/releases/tag/v6.2.0)
-  - Add the `PHPMailer/src` files on `PHPMailer/` Folder on the root of this project
+   
+   `git submodule init` at the root of the project
 
 - Configure the `var_config.php` file
 
