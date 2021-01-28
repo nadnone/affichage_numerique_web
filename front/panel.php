@@ -70,27 +70,72 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
 
                 if(!$labels) return;
 
+                $color = 0;
+
+                $color_0 = "#27ae60";
+                $color_1 = "#9b59b6";
+                $color_2 = "#f39c12";
+
                 foreach($labels as $label){
 
                     $label_str = strip_tags($label["label"]);
                     $label_id  = $label["id"];
                     $label_userID = $label["user_id"];
 
-                    echo "<div class='row'><p>$label_str</p>";
 
                     if($label_userID == $rslt["id"]){
+
+                        switch($color){
+                            case 0:
+                                echo "<div style='background-color: $color_0;' class='row'><p>$label_str</p>";
+                                $color++;
+                                break;
+                            case 1:
+                                echo "<div style='background-color: $color_1;' class='row'><p>$label_str</p>";
+                                $color++;
+                                break;
+                            case 2:
+                                echo "<div style='background-color: $color_2;' class='row'><p>$label_str</p>";
+                                $color = 0;
+                                break;
+
+                        }
+
+
                         echo <<<EOT
-                        <form method="post" action="../back/my_label.php" >
+                        <form method="post" action="../back/my_label.php">
                         <input type="hidden" name="id" value="$label_id"/>
                         <input type="hidden" name="action" value="delete"/>
                         <input type="submit" value="Supprimer"/>
                         </form>
                         EOT;
+                        
+                    echo "</div>";
+                    
+                    }
+                    else{
+
+                        switch($color){
+                            case 0:
+                                echo "<div style='background-color: $color_0;' class='row'><p>$label_str</p>";
+                                $color++;
+                                break;
+                            case 1:
+                                echo "<div style='background-color: $color_1;' class='row'><p>$label_str</p>";
+                                $color++;
+                                break;
+                            case 2:
+                                echo "<div style='background-color: $color_2;' class='row'><p>$label_str</p>";
+                                $color = 0;
+                                break;
+
+                        }
+                        
+                    echo "</div>";
                     }
 
-                    echo "</div>";
                    
-                                }
+                }
             }
             catch(PDOException $e){
                 //echo $e;

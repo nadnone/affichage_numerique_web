@@ -36,7 +36,7 @@ form > input {
     border: none;
     background-color: var(--secondary);
     outline: none;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 input[type="submit"]{
     border-radius: 5px;
@@ -45,13 +45,13 @@ input[type="submit"]{
     background-color: inherit;
     text-decoration: none;
     transition-duration: 0.5s;
-    border-radius: 15px;
+    border-radius: 5px;
     font-weight: bold;
 }
 input[type="submit"]:focus{
     background-color: var(--secondary);
     color: var(--primary);
-    border-radius: 15px;
+    border-radius: 5px;
 }
 input[type="submit"]:hover{
     background-color: var(--secondary);
@@ -73,29 +73,35 @@ h2{
 
 .panel{
     height: 100%;
-    width: 75%;
+    width: 90%;
 }
 .table{
     background-color: var(--secondary_dark);
     width: 100%;
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 15px;
     display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .row{
     background-color: var(--primary_dark);
-    width: 90%;
-    font-size: 18pt;
-    height: max-content;
-    padding: 5%;
-    border-radius: 15px;
-    margin: 15px 0;
-    color: var(--secondary);
+    width: 45%;
+    font-size: 16pt;
+    height: 400px;
+    padding: 1.5%;
+    border-radius: 5px;
+    margin: 1%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    word-wrap: break-word;
+}
+.row p{
+    word-wrap: break-word;
+    height: 80%;
+    overflow-y: auto;
 }
 .row form input[type="submit"]{
     height: max-content;
@@ -106,13 +112,13 @@ h2{
 
 .mylabel{
     height: 200px;
-    width: 96%;
+    width: 100%;
 }
 textarea{
     height: 50px;
     width: 100%;
     border: none;
-    border-radius: 15px;
+    border-radius: 5px;
     font-size: 12pt;
     padding-top: 12pt;
     margin-top: 5pt;
@@ -150,7 +156,12 @@ textarea:focus{
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
-    } 
+    }
+    input[value="Déconnexion"]{
+        text-align: center;
+        width: 100%!important;
+        border-radius: 0 !important;
+    }
     input {
         width: 90% !important;
         height: 60px !important;
@@ -160,10 +171,10 @@ textarea:focus{
     }
     .row{
         flex-direction: column;
-        width: 90%;
+        width: 98%;
     }
     .row input{
-        padding: 10pt 0;
+        width: 100% !important;
         height: 30px !important;
     }
     textarea:focus{
@@ -180,6 +191,7 @@ textarea:focus{
     .btn{
         width: 100% !important;
         padding: 2.5% 0 !important;
+        border-radius: 0 !important;
         background-color: var(--primary_dark);
     }
     table{
@@ -205,13 +217,13 @@ textarea:focus{
     height: 60px;
 }
 
-.btn{
+.btn, input[value="Déconnexion"]{
     color: var(--secondary);
     width: max-content;
     text-align: center;
     padding: 5px 20pt;
-    border-radius: 15px;
-    font-size: 24pt;
+    border-radius: 5px;
+    font-size: 18pt;
     transition-duration: .5s;
     margin: 10pt 0;
 }

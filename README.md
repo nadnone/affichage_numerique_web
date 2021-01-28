@@ -1,10 +1,10 @@
 # Panneau d'affichage numérique, WebApp
 
-![demo img PNG](./demo/demo2.png)
+![demo img PNG](./demo/7.png)
 
 
 
-More Screenshots: [ demo.md ](./demo.md)
+## More Screenshots: [ demo.md ](./demo.md)
 
 ## Requirements / installation
 
