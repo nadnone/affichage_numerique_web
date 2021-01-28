@@ -1,9 +1,7 @@
 <?php
 session_start();
 
-require("./var_config.php");
-
-$conn = new PDO("mysql:host=$mysql_host;dbname=$mysql_database;port=$mysql_port;", $mysql_username, $mysql_password);
+require("../config/var_config.php");
 
 $query = $conn->prepare("SELECT token, id FROM comptes WHERE username=:user");
 $query->execute([
@@ -14,7 +12,7 @@ $rslt = $query->fetch();
 
 if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"])){
     session_destroy();
-    header("Location: ./index.php");
+    header("Location: ../index.php");
     return;
 }
 
@@ -26,7 +24,7 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <title>Affichage numérique | <?php echo $_SESSION["username"]; ?></title>
     <meta name="robots" content="noindex">
     <meta name="googlebot" content="noindex">
@@ -36,7 +34,7 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
     <div class="panel">
 
         <h1>Bienvenue, <?php echo $_SESSION["username"]; ?></h1>
-        <form action="login.php" method="POST">
+        <form action="../back/login.php" method="POST">
             <input type="hidden" name="deconnect" value="true"/>
             <input type="submit" value="Déconnexion">
         </form>
@@ -57,7 +55,7 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
             </script>
 
 
-            <form action="my_label.php" id="post_label" class="mylabel" method="post">
+            <form action="../back/my_label.php" id="post_label" class="mylabel" method="post">
                 <textarea maxlength="500" placeholder="Blablabla (500 caractères max)" name="mylabel"></textarea>
                 <input type="hidden" name="action" value="add"/>
                 <input type="button" onclick="check_mail()" value="Envoyer"/>
@@ -82,7 +80,7 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
 
                     if($label_userID == $rslt["id"]){
                         echo <<<EOT
-                        <form method="post" action="my_label.php" >
+                        <form method="post" action="../back/my_label.php" >
                         <input type="hidden" name="id" value="$label_id"/>
                         <input type="hidden" name="action" value="delete"/>
                         <input type="submit" value="Supprimer"/>
@@ -96,7 +94,7 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
             }
             catch(PDOException $e){
                 //echo $e;
-                header("Location: ./panel.php?msg=Erreur+serveur");
+                header("Location: panel.php?msg=Erreur+serveur");
             }
               
 

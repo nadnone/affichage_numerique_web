@@ -6,15 +6,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require("PHPMailer/src/Exception.php");
-require("PHPMailer/src/PHPMailer.php");
-require("PHPMailer/src/SMTP.php");
+require("../PHPMailer/src/Exception.php");
+require("../PHPMailer/src/PHPMailer.php");
+require("../PHPMailer/src/SMTP.php");
 
-require("./var_config.php");
+require("../config/var_config.php");
 
-
-$conn = new PDO("mysql:host=$mysql_host;dbname=$mysql_database;port=$mysql_port;charset=utf8", $mysql_username, $mysql_password);
-$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
 $query = $conn->prepare("SELECT token, email, id FROM comptes WHERE username=:user");
 $query->execute([
@@ -24,10 +21,10 @@ $query->execute([
 $rslt = $query->fetch();
 
 if(strip_tags($_SESSION["token"]) != $rslt["token"]){
-    header("Location: ./index.html");
+    header("Location: ../index.html");
     return;
 }
-if($_SESSION["username"] == "testeur"){ header("Location: ./panel.php?msg=Vous+ne+pouvez+pas+modifier+le+compte+de+teste"); return; }
+if($_SESSION["username"] == "testeur"){ header("Location: ../front/panel.php?msg=Vous+ne+pouvez+pas+modifier+le+compte+de+teste"); return; }
 
 
 if(isset($_POST["action"])){
@@ -42,7 +39,7 @@ if(isset($_POST["action"])){
                     ":user_id" => $rslt["id"],
                     ":id" => strip_tags($_POST["id"])
                 ]);
-                header("Location: ./panel.php");
+                header("Location: ../front/panel.php");
                 break;
 
             case "add":
@@ -71,9 +68,13 @@ if(isset($_POST["action"])){
 
                                     if($to != NULL)
                                     {
+
+
                                         // send mail
                                         $mailer = new PHPMailer(true);
 
+                                        //$mailer->SMTPDebug = 4;
+                                        
                                         $mailer->CharSet = "UTF-8";
                                         //Server settings
                                         $mailer->isSMTP();                                            // Send using SMTP
@@ -103,6 +104,9 @@ if(isset($_POST["action"])){
                                         Ce mail est automatique, merci de ne pas y répondre. Pour vous désinscrire, vous devez supprimer votre compte à l\'adresse <a href="'.$_SERVER["SERVER_NAME"].'/affichage">'.$_SERVER["SERVER_NAME"].'</a>
                                         ';
 
+
+
+
                                         $mailer->send();
                                     }
             
@@ -110,12 +114,12 @@ if(isset($_POST["action"])){
                                 }
 
                             }
-                            header("Location: ./panel.php?msg=Etiquette+envoy%C3%A9e");
+                            header("Location: ../front/panel.php?msg=Etiquette+envoy%C3%A9e");
 
 
                     }
                     catch(Exception $e){
-                        header("Location: ./index.php?msg=Erreur+serveur");
+                        header("Location: ../index.php?msg=Erreur+serveur");
                     }
                                     
                 }
@@ -128,7 +132,7 @@ if(isset($_POST["action"])){
 
     }
     catch(PDOException $e){
-        header("Location: ./index.php?msg=Erreur+serveur");
+        header("Location: ../index.php?msg=Erreur+serveur");
     }
 
 }

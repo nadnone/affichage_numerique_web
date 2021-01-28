@@ -1,11 +1,9 @@
 <?php
 session_start();
 
-require("./var_config.php");
-
 // si déjà connecté
 if(isset($_SESSION["username"]) && isset($_SESSION["token"])){
-    header("Location: panel.php");
+    header("Location: front/panel.php");
 }
 
 ?>
@@ -24,7 +22,7 @@ if(isset($_SESSION["username"]) && isset($_SESSION["token"])){
     
 
 
-        <form action="./login.php" method="post" class="box">
+        <form action="./back/login.php" method="post" class="box">
 
             <?php echo isset($_GET["msg"]) ?  "<h1>". $_GET["msg"] . "</h1>": " <h1>Panneau numérique</h1>"; ?> 
             <input type="text" name="username" placeholder="username">
