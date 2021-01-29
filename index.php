@@ -47,9 +47,9 @@ if(isset($_SESSION["username"]) && isset($_SESSION["token"])){
         </form>
 
         <div class="footer">
-            Cette webapp crée des cookies de session. Une base de donnée contient nom d'utilisateur, mot de passe, étiquettes, adresse mail, un lien et fait entre l'utilisateur et l'étiquette afin de lui permettre de supprimer ses étiquettes, ce lien n'est pas affiché sur l'application. le tout est hébergé dans mon appartement. Vous pouvez supprimer votre compte dans la page de sécurité.            
             Si vous connaissez les languages utilisés ou que vous avez des idées, vous pouvez proposer des améliorations.<br/>
-            <a href="https://github.com/spoutnik911/affichage_numerique_web" target="_blank">Code source / Propositions</a>
+            <a href="https://github.com/spoutnik911/affichage_numerique_web" target="_blank">Code source / Propositions</a><br/>
+            <a target="_blank" href="./front/legal.html">Mentions légales</a><br/>
         </div>
 
 

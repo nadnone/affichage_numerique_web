@@ -3,18 +3,7 @@ session_start();
 
 require("../config/var_config.php");
 
-$query = $conn->prepare("SELECT token, id FROM comptes WHERE username=:user");
-$query->execute([
-    ":user" => strip_tags($_SESSION["username"])
-]);
-
-$rslt = $query->fetch();
-
-if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"])){
-    session_destroy();
-    header("Location: ../index.php");
-    return;
-}
+require("../misc/tocken_check.php");
 
 
 ?>
@@ -40,6 +29,12 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
         </form>
         <div class="btn" onclick="window.location.href='./edit.php';">
             Sécurité
+        </div>
+        <div class="btn" onclick="window.location.href='../front/dl_data.php';">
+            Télécharger mes données
+        </div>
+        <div class="btn" onclick="window.location.href='../front/legal.html';">
+            Mentions légales
         </div>
         <h3><?php echo  isset($_GET["msg"]) ? $_GET["msg"] : ""; ?></h3>
         <div class="table">
@@ -138,7 +133,7 @@ if(strip_tags($_SESSION["token"])  != $rslt["token"] || !isset($_SESSION["token"
                 }
             }
             catch(PDOException $e){
-                //echo $e;
+                log_append_error("Erreur:\n\n$e");
                 header("Location: panel.php?msg=Erreur+serveur");
             }
               

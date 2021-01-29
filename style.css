@@ -129,7 +129,19 @@ textarea:focus{
     outline: none;
     height: 150px;
 }
-
+.legal{
+    font-size: 18px;
+    margin: 25pt;
+    padding: 15pt;
+    background-color: var(--secondary_dark);
+    color: var(--secondary);
+}
+.legal b{
+    font-size: 20px;
+}
+.legal a:hover{
+    color: var(--primary);
+}
 
 
 

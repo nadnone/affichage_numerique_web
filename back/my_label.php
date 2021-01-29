@@ -1,30 +1,15 @@
 <?php
 session_start();
 
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-require("../PHPMailer/src/Exception.php");
-require("../PHPMailer/src/PHPMailer.php");
-require("../PHPMailer/src/SMTP.php");
-
 require("../config/var_config.php");
 
+require("../misc/tocken_check.php");
 
-$query = $conn->prepare("SELECT token, email, id FROM comptes WHERE username=:user");
-$query->execute([
-    ":user" => strip_tags($_SESSION["username"])
-]);
+require("../misc/mail_init.php");
 
-$rslt = $query->fetch();
+require("../misc/log_func.php");
 
-if(strip_tags($_SESSION["token"]) != $rslt["token"]){
-    header("Location: ../index.html");
-    return;
-}
-if($_SESSION["username"] == "testeur"){ header("Location: ../front/panel.php?msg=Vous+ne+pouvez+pas+modifier+le+compte+de+teste"); return; }
+if($_SESSION["username"] == $test_account_name && $test_account){ header("Location: ../front/panel.php?msg=Vous+ne+pouvez+pas+modifier+le+compte+de+teste"); return; }
 
 
 if(isset($_POST["action"])){
@@ -39,6 +24,7 @@ if(isset($_POST["action"])){
                     ":user_id" => $rslt["id"],
                     ":id" => strip_tags($_POST["id"])
                 ]);
+                log_append_activity($_SESSION["username"] . " vient de supprimer une étiquette");
                 header("Location: ../front/panel.php");
                 break;
 
@@ -70,21 +56,6 @@ if(isset($_POST["action"])){
                                     {
 
 
-                                        // send mail
-                                        $mailer = new PHPMailer(true);
-
-                                        //$mailer->SMTPDebug = 4;
-                                        
-                                        $mailer->CharSet = "UTF-8";
-                                        //Server settings
-                                        $mailer->isSMTP();                                            // Send using SMTP
-                                        $mailer->Host       = $mail_server_host;                      // Set the SMTP server to send through
-                                        $mailer->SMTPAuth   = true;                                   // Enable SMTP authentication
-                                        $mailer->Username   = $mail_server_user;                      // SMTP username
-                                        $mailer->Password   = $mail_server_password;                  // SMTP password
-                                        $mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-                                        $mailer->Port       = $mail_server_SMTP_port;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
                                         //Recipients
                                         $mailer->setFrom($mail_server_user);
                                         $mailer->addAddress($to);
@@ -114,11 +85,13 @@ if(isset($_POST["action"])){
                                 }
 
                             }
+                            log_append_activity($_SESSION["username"] . " vient d'envoyer l'étiquette:\n\"" . strip_tags($_POST["mylabel"]). "\"");
                             header("Location: ../front/panel.php?msg=Etiquette+envoy%C3%A9e");
 
 
                     }
                     catch(Exception $e){
+                        log_append_error("Tentative d'envoi de mail échoué, erreur\n\n$e");
                         header("Location: ../index.php?msg=Erreur+serveur");
                     }
                                     
@@ -132,6 +105,7 @@ if(isset($_POST["action"])){
 
     }
     catch(PDOException $e){
+        log_append_error("Erreur:\n\n$e");
         header("Location: ../index.php?msg=Erreur+serveur");
     }
 

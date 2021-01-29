@@ -3,24 +3,17 @@ session_start();
 
 require("../config/var_config.php");
 
-$query = $conn->prepare("SELECT token, id FROM comptes WHERE username=:user");
-$query->execute([
-    ":user" =>strip_tags($_SESSION["username"])
-]);
+require("../misc/tocken_check.php");
 
-$rslt = $query->fetch();
-
-if(strip_tags($_SESSION["token"]) != $rslt["token"] || !isset($_SESSION["token"])){
-    header("Location: ../index.php");
-    return;
-}
+require("../misc/log_func.php");
 
 
-if($_SESSION["username"] == "testeur"){ header("Location: ../front/edit.php?msg=Vous+ne+pouvez+pas+modifier+le+compte+de+teste"); return; }
+if($_SESSION["username"] == $test_account_name && $test_account){ header("Location: ../front/edit.php?msg=Vous+ne+pouvez+pas+modifier+le+compte+de+teste"); return; }
 
 elseif(isset($_GET["deleteaccount"])){
     echo "pass";
         try{
+            $ancien_id = $rslt["id"];
             $query = $conn->prepare("DELETE FROM labels WHERE user_id=:id");
             $query->execute([
                 ":id" => $rslt["id"]
@@ -32,9 +25,12 @@ elseif(isset($_GET["deleteaccount"])){
             ]);
     
             session_destroy();
+            log_append_security("Ancien compte avec l'id numéro $ancien_id a été supprimé.");
             header("Location: ../index.php?msg=Compte+supprimé");
         }
         catch(PDOException $e){
+            log_append_security("Ancien compte avec l'id numéro $ancien_id n'a pas pu être supprimé. (erreur système)");
+            log_append_error("Ancien compte avec l'id numéro $ancien_id n'a pas pu être supprimé. \n\n$e");
             header("Location: ../front/edit.php?msg=Erreur+serveur");
         }
         return;
@@ -43,7 +39,7 @@ elseif(!empty($_POST["password1"]) && !empty($_POST["password0"]) && $_POST["pas
 
     $password_striped = strip_tags($_POST["password1"]);
 
-    if(sizeof(str_split($password_striped)) < 20){ header("Location: ../front/edit.php?msg=20+caract%C3%A8res+minimum"); return;}
+    if(sizeof(str_split($password_striped)) < 12){ header("Location: ../front/edit.php?msg=20+caract%C3%A8res+minimum"); return;}
     if(preg_match_all("/[0-9]/", $password_striped) < 2){ header("Location: ../front/edit.php?msg=2+Chffres+minimum"); return;}
     if(preg_match_all("/[A-Z]/", $password_striped) < 2){ header("Location: ../front/edit.php?msg=2+majuscules+minimum"); return;}
     if(preg_match_all("/[a-z]/", $password_striped) < 2){ header("Location: ../front/edit.php?msg=2+minuscules+minimum"); return;}
@@ -56,7 +52,10 @@ elseif(!empty($_POST["password1"]) && !empty($_POST["password0"]) && $_POST["pas
         $query->execute([
             ":user" => strip_tags($_SESSION["username"])
         ]);
-        if(!password_verify(strip_tags($_POST["password0"]), $query->fetch()["password"])){ header("Location: ../front/edit.php?msg=Mot+de+passe+incorrect"); return;}
+        if(!password_verify(strip_tags($_POST["password0"]), $query->fetch()["password"])){ 
+            log_append_security($_SESSION["username"] . " -> tentative de changement de mot de passe échoué.");
+            header("Location: ../front/edit.php?msg=Mot+de+passe+incorrect"); return;
+        }
         
         $query = $conn->prepare("UPDATE comptes SET password=:password WHERE username=:user");
         $password = password_hash(strip_tags($password_striped), PASSWORD_DEFAULT);
@@ -65,10 +64,13 @@ elseif(!empty($_POST["password1"]) && !empty($_POST["password0"]) && $_POST["pas
             ":password" => $password
         ]);
         session_destroy();
+        log_append_security($_SESSION["username"] . " -> le mot de passe a été changé.");
         header("Location: ../index.php?msg=Mot+de+passe+chang%C3%A9%2C+reconnexion");
         return;
     }
     catch(PDOException $e){
+        log_append_security($_SESSION["username"] . " -> mot de passe inchangé. (erreur système)");
+        log_append_error("Le mot de passe n'a pas pu être changé pour l'utilisateur ".strip_tags($_SESSION["username"])." \n\n$e");
         header("Location: ../index.php?msg=Erreur+server");
     }
 
