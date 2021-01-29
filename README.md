@@ -9,43 +9,12 @@
 ## Requirements / installation
 
 - need [ PHPMailer 6.2.0 ](https://github.com/PHPMailer/PHPMailer/releases/tag/v6.2.0)
+
+- need `mysql pdo` and of course a web server with php
    
    `git submodule init` at the root of the project
 
-- Configure the `var_config.php` file
+- Configure the `./config/var_config.php` file
 
-SQL code:
-```SQL
-
-CREATE TABLE `comptes` (
-  `id` int(30) UNSIGNED NOT NULL,
-  `token` varchar(1024) DEFAULT NULL,
-  `username` varchar(30) DEFAULT NULL,
-  `password` varchar(300) NOT NULL,
-  'email' varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-ALTER TABLE `comptes`
-  ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `comptes`
-  MODIFY `id` int(30) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
-
-
-CREATE TABLE `labels` (
-  `id` int(255) UNSIGNED NOT NULL,
-  `label` text NOT NULL,
-  `user_id` int(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-ALTER TABLE `labels`
-  ADD PRIMARY KEY (`id`);
-
-
-ALTER TABLE `labels`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
-```
+- SQL code: `./sql/dev_immeuble.sql`
+  -  your need to change the lines 48 and 49 at `CHANGE ME` notice with the `./hash.php` given with your password
