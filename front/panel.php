@@ -56,6 +56,7 @@ require("../misc/tocken_check.php");
                 <input type="button" onclick="check_mail()" value="Envoyer"/>
             </form>
 
+            <div class="data">
             <?php
             try{                
                 
@@ -140,7 +141,7 @@ require("../misc/tocken_check.php");
 
             ?>
    
-
+            </div>
         </div>
 
     </div>

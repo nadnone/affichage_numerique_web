@@ -20,7 +20,7 @@ require("../misc/tocken_check.php");
 <body>
         <script>
             function check(){
-                if(window.confirm("Vous-êtes sur ?")) window.location.href='../back/edit_back.php?deleteaccount';
+                if(window.confirm("Vous-êtes sur ? votre compte et vos étiquettes seront supprimés")) window.location.href='./delete_account.php';
             }
         </script>
     <div class="panel">
@@ -33,7 +33,7 @@ require("../misc/tocken_check.php");
         <div class="btn" onclick="window.location.href='../front/dl_data.php';">
             Télécharger mes données
         </div>
-        <div class="btn" onclick="window.open('../front/legal.html', 'blank');"">
+        <div class="btn" onclick="window.location.href='../front/legal.html';">
             Mentions légales
         </div>
 
@@ -46,9 +46,8 @@ require("../misc/tocken_check.php");
                 <input type="password" placeholder="Mot de passe" name="password1"/>
                 <input type="password" placeholder="Répéter le mot de passe" name="password2"/>
                 <input type="submit" value="Changer">
-            </form>
 
-            <table>
+                <table>
                 <tr><th>A savoir</th></tr>
                 <tr><td>- 12 caractères minimum</td></tr>
                 <tr><td>- 2 chiffres minimum</td></tr>
@@ -58,7 +57,11 @@ require("../misc/tocken_check.php");
                 <tr><th>Recommandations</th></tr>
                 <tr><td>- Ne pas divulger d'informations sensibles</td></tr>
                 <tr><td>- Le risque zéro n'existe pas (même si au fond ce n'est pas une banque)</td></tr>
+                <tr><td>- Ne pas utiliser un mot de passe déjà utilisé !</td></tr>
             </table>
+            </form>
+
+           
            
     </div>
 

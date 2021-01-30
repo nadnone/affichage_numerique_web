@@ -61,7 +61,7 @@ if(isset($_POST["action"])){
                                         $mailer->addAddress($to);
 
                                         // Content
-                                        $mailer->isHTML(true);                                  // Set email format to HTML
+                                        $mailer->isHTML(true);
                                         $mailer->Subject = 'Information immeuble WebApp';
                                         $mailer->Body    = '
                                             Hey '.$mail["username"].', quelqu\'un a ajouté une étiquette.

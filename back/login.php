@@ -49,13 +49,16 @@ if(!empty($_POST["username"]) && !empty($_POST["password"]) && isset($_POST["use
                 $token = bin2hex(random_bytes(512));
 
                 $_SESSION["username"] = $username;
-                $_SESSION["token"] = $token;
+                
+                if($username == $test_account_name && $test_account) $token = "guest";
 
                 $query = $conn->prepare("UPDATE comptes SET token=:token , mdp_tentative='0', time_lock=NULL WHERE username=:user");
                 $query->execute([
                     ":token" => $token,
                     ":user"  => $username,
-                ]);              
+                ]);     
+
+                $_SESSION["token"] = $token;                    
                 
                 
                 

@@ -3,13 +3,16 @@
     --primary_dark: #2980b9;
     --secondary: #ecf0f1;
     --secondary_dark: #2c3e50;
-}
 
-html, body{
-    margin: 0;
-    padding: 0;
-    height: 100%;
+}
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body, html{
     width: 100%;
+    height: 100%;
+
 }
 body{
     background-color: var(--primary);
@@ -73,23 +76,35 @@ h2{
 
 .panel{
     height: 100%;
-    width: 90%;
+    width: 100%;
+    margin-left: -1%;
 }
 .table{
     background-color: var(--secondary_dark);
     width: 100%;
+    height: 100%;
     border-radius: 5px;
-    padding: 15px;
+    padding: 5px;
     display: flex;
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
 }
+.data{
+    overflow-y: auto;
+    width: 100%;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
 .row{
     background-color: var(--primary_dark);
     width: 45%;
     font-size: 16pt;
-    height: 400px;
+    height: 250px;
     padding: 1.5%;
     border-radius: 5px;
     margin: 1%;
@@ -136,11 +151,17 @@ textarea:focus{
     background-color: var(--secondary_dark);
     color: var(--secondary);
 }
+
+/* legal notice */
 .legal b{
     font-size: 20px;
 }
 .legal a:hover{
     color: var(--primary);
+}
+.legal a:link{
+    color: var(--secondary);
+}
 }
 
 
@@ -154,7 +175,6 @@ textarea:focus{
     }
     table{
         padding-left: 32%;
-        width: 70%;
     }
     th{
         padding-top: 2%;
@@ -177,6 +197,12 @@ textarea:focus{
     input {
         width: 90% !important;
         height: 60px !important;
+    }
+    .panel{
+        height: 100%;
+    }
+    .data{
+        height: 60%;
     }
     .panel, .table, form{
         border-radius: 0px;
@@ -202,9 +228,13 @@ textarea:focus{
     }
     .btn{
         width: 100% !important;
-        padding: 2.5% 0 !important;
+        padding: 2% 0 !important;
         border-radius: 0 !important;
         background-color: var(--primary_dark);
+        display: inherit;
+    }
+    .panel .btn{
+        display:  block;
     }
     table{
         padding-left: 5%;
@@ -213,7 +243,16 @@ textarea:focus{
         margin-left: 5%;
         margin-right: 5%;
     }
+    .legal{
+        margin: 0px;
+        margin-bottom: -25pt;
+        width: 96%;
+        padding: 2%;
+        word-wrap: break-word;
+    }
+
 }
+
 
 /* edit panel */
 
@@ -238,6 +277,8 @@ textarea:focus{
     font-size: 18pt;
     transition-duration: .5s;
     margin: 10pt 0;
+    display: inline;
+
 }
 .btn:hover{
     background-color: var(--secondary);

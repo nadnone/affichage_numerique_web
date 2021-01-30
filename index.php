@@ -49,7 +49,7 @@ if(isset($_SESSION["username"]) && isset($_SESSION["token"])){
         <div class="footer">
             Si vous connaissez les languages utilisés ou que vous avez des idées, vous pouvez proposer des améliorations.<br/>
             <a href="https://github.com/spoutnik911/affichage_numerique_web" target="_blank">Code source / Propositions</a><br/>
-            <a target="_blank" href="./front/legal.html">Mentions légales</a><br/>
+            <a href="./front/legal.html">Mentions légales</a><br/>
         </div>
 
 

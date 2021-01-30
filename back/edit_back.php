@@ -10,9 +10,25 @@ require("../misc/log_func.php");
 
 if($_SESSION["username"] == $test_account_name && $test_account){ header("Location: ../front/edit.php?msg=Vous+ne+pouvez+pas+modifier+le+compte+de+teste"); return; }
 
-elseif(isset($_GET["deleteaccount"])){
-    echo "pass";
+elseif(isset($_GET["deleteaccount"]) && isset($_POST["password"])){
         try{
+
+
+            $query = $conn->prepare("SELECT password FROM comptes WHERE username=:user");
+            $query->execute([
+                ":user" => $_SESSION["username"]
+            ]);
+            
+            if(!password_verify(strip_tags($_POST["password"]), $query->fetch()["password"])){
+                session_destroy();
+                header("Location: ../index.php?msg=Mot+de+passe+incorrect%2C+reconnexion"); 
+                log_append_security($_SESSION["username"] . "-> WARNING tentative de suppression de compte échoué, mot de passe incorrect.");
+                return;
+            }
+
+
+
+
             $ancien_id = $rslt["id"];
             $query = $conn->prepare("DELETE FROM labels WHERE user_id=:id");
             $query->execute([
