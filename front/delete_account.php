@@ -16,7 +16,7 @@ require("../misc/tocken_check.php");
     <?php require("../misc/antibot.php"); ?>
 </head>
 <body>
-    <div class="btn" onclick="window.location.href = '../';"">
+    <div class="btn" onclick="window.history.back();"">
         Retour
     </div>
     <h1><?php if(isset($_GET["msg"])){ echo strip_tags($_GET["msg"]); } else { echo "Merci de confirmer votre mot de passe pour le compte"; }?></h1>

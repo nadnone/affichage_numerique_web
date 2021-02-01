@@ -24,7 +24,7 @@ require("../misc/tocken_check.php");
             }
         </script>
     <div class="panel">
-        <div class="btn" onclick="window.location.href='../front/panel.php';">
+        <div class="btn" onclick="window.history.back();"">
             Retour
         </div>
         <div class="btn" onclick="check()">
