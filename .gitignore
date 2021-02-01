@@ -1,1 +1,4 @@
 hash.php
+tmp/logs/panneau_affichage_activity.log
+tmp/logs/panneau_affichage_security.log
+.vscode/launch.json

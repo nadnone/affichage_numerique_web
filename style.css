@@ -76,8 +76,8 @@ h2{
 
 .panel{
     height: 100%;
-    width: 100%;
-    margin-left: -1%;
+    width: 99%;
+    margin-left: -.5%;
 }
 .table{
     background-color: var(--secondary_dark);
@@ -161,7 +161,6 @@ textarea:focus{
 }
 .legal a:link{
     color: var(--secondary);
-}
 }
 
 

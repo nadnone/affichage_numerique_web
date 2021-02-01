@@ -15,8 +15,7 @@ require("../misc/tocken_check.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
     <title>Affichage numérique | <?php echo $_SESSION["username"]; ?></title>
-    <meta name="robots" content="noindex">
-    <meta name="googlebot" content="noindex">
+    <?php require("../misc/antibot.php"); ?>
 </head>
 <body>
         
